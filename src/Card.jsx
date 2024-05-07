@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import data from "./data";
 
 function Card({
   symbol,
@@ -8,7 +7,6 @@ function Card({
   matches,
   setMatches,
   reset,
-  setHasWon,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const isMatched = matches.includes(symbol);
@@ -23,13 +21,13 @@ function Card({
       if (currGuesses[0] === currGuesses[1] && currGuesses[0] === symbol) {
         setMatches((curr) => [...curr, symbol]);
       } else if (!isMatched) {
-        const TO = setTimeout(() => {
+        setTimeout(() => {
           setIsFlipped(false);
         }, 1000);
         setCurrGuesses([]);
       }
     }
-  }, [currGuesses]);
+  }, [currGuesses, setMatches, symbol, isMatched, setCurrGuesses]);
 
   useEffect(() => {
     setIsFlipped(false);

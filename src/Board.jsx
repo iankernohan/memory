@@ -8,10 +8,12 @@ function Board({ hasWon, setHasWon }) {
   const [currGuesses, setCurrGuesses] = useState([]);
   const [matches, setMatches] = useState([]);
   const [reset, setReset] = useState(false);
-  const symbols = useMemo(() => shuffle(data), [reset]);
+  const [shuffleImgs, setShuffleImgs] = useState(false);
+  const symbols = useMemo(() => shuffle(data), [shuffleImgs]);
 
   function restart() {
     setReset((curr) => !curr);
+    setTimeout(() => setShuffleImgs((curr) => !curr), 250);
     setCurrGuesses([]);
     setMatches([]);
     setHasWon(false);
@@ -21,7 +23,7 @@ function Board({ hasWon, setHasWon }) {
     if (matches.length === data.length) {
       setTimeout(() => setHasWon(true), 500);
     }
-  }, [matches, data]);
+  }, [matches, setHasWon]);
 
   return (
     <>
